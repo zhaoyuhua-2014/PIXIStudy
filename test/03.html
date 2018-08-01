@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=750,user-scalable=no"/>
+		<title></title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;}
+		</style>
+	</head>
+	<body>
+	</body>
+	<script src="pixi.js" type="text/javascript" charset="utf-8"></script>
+	<script src="jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="mobile-util.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var w =$(window).width(),
+			h = $(window).height();
+		var rdp = null;
+		// 创建 renderer
+		var app = new PIXI.Application(w, h,{backgroundColor:0x000000});
+		document.body.appendChild(app.view);
+		//背景
+		var bg = PIXI.Sprite.fromImage('img/bg.png');
+		
+		bg.x = 0;
+		bg.y = 0;
+		
+		bg.width = w;
+		bg.height = h;
+		
+		app.stage.addChild(bg);
+		//内容
+		var tree = PIXI.Sprite.fromImage('img/01.png');
+		tree.x = 300;
+		tree.y = 860;
+		app.stage.addChild(tree);
+		
+		var windmill = PIXI.Sprite.fromImage('img/02.png');
+		windmill.x = 640;
+		windmill.y = 1010;
+		app.stage.addChild(windmill);
+		
+		var arry = [1210,1211,1212,1213,1214,1225,1216,1219,1218,1219]
+		
+		for (var i=0 ; i<3;i++ ) {
+			var grass = PIXI.Sprite.fromImage('img/03.png');
+			grass.x = parseInt(Math.random() * 730 + 20);
+			grass.y = arry[parseInt(Math.random() * 10)];
+			app.stage.addChild(grass);
+		}
+		
+		app.ticker.add(function(delta){
+			bg.rotaion += 0.1 * delta
+		})
+		
+	</script>
+</html>

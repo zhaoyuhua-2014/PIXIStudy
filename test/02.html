@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;}
+		</style>
+	</head>
+	<body>
+	</body>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.7.1/pixi.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../activity/js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var w =$(window).width(),
+			h = $(window).height();
+		// 创建 renderer
+		var renderer = PIXI.autoDetectRenderer(w, h);
+		var stage = new PIXI.Container();
+		
+		document.body.appendChild(renderer.view);
+		//创建背景
+		
+		PIXI.loader.add("img/bg.png").load(setup);
+		
+		function setup() { 
+			var cat = new PIXI.Sprite(
+		  		PIXI.loader.resources["img/01.png"].texture 
+			);
+			cat.position.set(1,10)
+			stage.addChild(cat); 
+	
+			renderer.render(stage);
+		}
+	</script>
+</html>

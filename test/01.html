@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;}
+		</style>
+	</head>
+	<body>
+	</body>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.7.1/pixi.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../activity/js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		console.log(PIXI);
+		var w =$(window).width(),
+			h = $(window).height();
+		// 创建 renderer
+		var renderer = PIXI.autoDetectRenderer(w, h);
+		
+		// 将 canvas 加入到 html 页面中
+		document.body.appendChild(renderer.view);
+		
+		// 创建 stage 容器
+		var stage = new PIXI.Container();
+		
+		
+		
+		// 基本方式
+		var texture = PIXI.utils.TextureCache["img/bg.png"];
+		var sprite = new PIXI.Sprite(texture);
+		
+		//使用 load 函数
+		PIXI.loader 
+		  .add("img/bg.png") 
+		  .load(setup);
+		
+		function setup() { 
+			var sprite = new PIXI.Sprite(
+			  PIXI.loader.resources["img/bg.png"].texture 
+			);
+		}
+		stage.addChild(sprite);
+
+		// 用 renderer 渲染 stage
+		renderer.render(stage);
+	</script>
+</html>

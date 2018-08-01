@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script src="../assets/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../assets/pixi.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var app = new PIXI.Application(800, 600, { backgroundColor: 0x1099bb });
+		document.body.appendChild(app.view);
+		
+		
+		// create a texture from an image path
+		var texture = PIXI.Texture.fromImage('../../assets/basics/p2.jpeg');
+		/* create a tiling sprite ...
+		 * requires a texture, a width and a height
+		 * in WebGL the image size should preferably be a power of two
+		 * 创建一个瓷砖精灵…
+			需要纹理、宽度和高度
+
+			在WebGL中，图像大小最好是两个幂。
+		 */
+		var tilingSprite = new PIXI.extras.TilingSprite(
+			texture,
+			app.screen.width,
+			app.screen.height
+		)
+		
+		app.stage.addChild(tilingSprite);
+		
+		var count = 0;
+		
+		app.ticker.add(function(){
+			count += 0.005;
+			
+			
+			tilingSprite.tileScale.x = 2 + Math.sin(count);
+			tilingSprite.tileScale.y = 2 + Math.cos(count);
+			
+			
+			
+			tilingSprite.tilePosition.x +=1;
+			tilingSprite.tilePosition.y +=1;
+						
+		})
+	</script>
+</html>

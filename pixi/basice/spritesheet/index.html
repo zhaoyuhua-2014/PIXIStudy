@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script src="../assets/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../assets/pixi.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var app = new PIXI.Application();
+		document.body.appendChild(app.view);
+		
+		PIXI.loader
+		    .add('../../assets/basics/fighter.json')
+		    .load(onAssetsLoaded);
+		    
+		function onAssetsLoaded(){
+		    // create an array of textures from an image path
+		    var frames = [];
+		    
+		    for (var i = 0; i < 30; i++) {
+		        var val = i < 10 ? '0' + i : i;
+		        // magically works since the spritesheet was loaded with the pixi loader
+		        //自SpisteSeGET加载PiXI加载程序以来，神奇地工作。
+		        frames.push(PIXI.Texture.fromFrame('rollSequence00' + val + '.png'));
+		    }
+		    // create an AnimatedSprite (brings back memories from the days of Flash, right ?)
+		    // 创建一个动画精灵（从闪光灯中恢复记忆，对吧？）
+		    var anim = new PIXI.extras.AnimatedSprite(frames);
+		    /*
+		     * An AnimatedSprite inherits all the properties of a PIXI sprite
+		     * 一个动画精灵继承了PXI精灵的所有属性。
+		     * so you can change its position, its anchor, mask it, etc
+			 * 所以你可以改变它的位置、锚、面具等
+		     */
+		    anim.x = app.screen.width / 2;
+		    anim.y = app.screen.height / 2;
+		    anim.anchor.set(0.5);
+		    anim.animationSpeed = 0.5;
+		    anim.play();
+		
+		    app.stage.addChild(anim);
+		
+		    // Animate the rotation
+		    app.ticker.add(function() {
+		        anim.rotation += 0.01;
+		    });
+		}
+
+	</script>
+</html>

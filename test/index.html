@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="map">
+			
+		</div>
+	</body>
+	<!--
+		创建一个PIXI的实例，并展示出来，通常需要以下几步：
+		
+		创建一个舞台 (stage)
+		创建一个画布 (render)
+		把画布插入DOM中
+		创建一个精灵 (sprite)
+		把精灵加入画布 
+		把画布加入舞台
+		刷新舞台
+	-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.7.1/pixi.min.js" type="text/javascript" charset="utf-8"></script>
+	
+	<script type="text/javascript">
+		
+		/*
+		 舞台(stage):
+		所有要渲染的对象都必须连接到舞台中才能被显示出来，舞台处于整个树形展示结构的最底层，可以理解为背景
+		 */
+		//接收一个16进制的值，用于背景的颜色
+		var stage = new PIXI.Stage(0xFFFFFF);
+		/*
+		   画布(renderer):
+ 		选用canvas或webGL进行渲染的一个区域
+		 * */
+		//它的后面还有两个可选参数，分别 用来指定现有的canvas元素作为容器，canvas背景是否透明，
+		var renderer = PIXI.autoDetectRenderer(400, 300);
+		/*
+		 材质(texture):
+		可以理解成一种承载图片的结构，它本身不能直接用于显示，需要通过精灵(sprite)才能显示，有点类似于dom中的临时碎片（DocumentFragment）
+		 * */
+		//var texture = PIXI.Texture.fromImage("img/bg.png");
+		/*
+		 精灵(sprite):
+
+		可以直接用于舞台显示的对象,可以理解为DOM中的element.
+		精灵可以直接用图片创建，也可以先创建材质，再用材质创建精灵
+		 * */
+		var sprite = new PIXI.Sprite.fromImage('img/bg.png');//直接由图片创建
+		//...
+		
+		//var texture = PIXI.Texture.fromImage("bunny.png");
+		//var sprite = new PIXI.Sprite(texture);//由材质创建
+		/*
+		 事件(event)：
+		PIXI库在精灵和舞台上提供了事件,用于交互.
+		 * */
+		
+		stage.click = function(data){
+		 	var event = data.originalEvent
+		}
+		sprite.click = function(data){
+		    var event = data.originalEvent
+		    var target = event.target
+		    //阻止默认行为,sprite.buttonMode = false;
+		    event.preventDefault();
+		}
+	</script>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script src="../assets/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../assets/pixi.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		
+		var app = new PIXI.Application();
+		document.body.appendChild(app.view);
+		
+		// Create background image
+		var background = PIXI.Sprite.fromImage("../../assets/basics/bkg-grass.jpg");
+		background.width = app.screen.width;
+		background.height = app.screen.height;
+		app.stage.addChild(background);
+		
+		// Stop application wait for load to finish
+		//停止应用程序等待负载完成
+		app.stop();
+		
+		PIXI.loader.add('shader', '../../assets/basics/shader.frag')
+		    .load(onLoaded);
+		
+		var filter;
+		
+		// Handle the load completed
+		function onLoaded (loader,res) {
+		
+		    // Create the new filter, arguments: (vertexShader, framentSource)
+		    filter = new PIXI.Filter(null, res.shader.data);
+			console.log([filter])
+		    // Add the filter
+		    background.filters = [filter];
+		
+		    // Resume application update
+		    app.start();
+		}
+		
+		// Animate the filter
+		app.ticker.add(function(delta) {
+		    filter.uniforms.customUniform += 0.04 * delta;
+		});
+
+	</script>
+</html>
