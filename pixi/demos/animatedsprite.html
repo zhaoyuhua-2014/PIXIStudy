@@ -12,7 +12,34 @@
 		var app = new PIXI.Application(800, 600, { backgroundColor: 0x1099bb });
 		document.body.appendChild(app.view);
 		
+		app.stop();
 		
+		PIXI.loader
+			.add('spritesheet','../assets/mc.json')
+			.load(fun1);
+			
+		function fun1(){
+			//存储纹理的数组
+			var arr = []
+			
+			for (var i = 0; i < 27; i++) {
+				var texture = new PIXI.Texture.fromImage('Explosion_Sequence_A '+ (i+1) +'.png');
+				arr.push(texture);
+			}
+			
+			for (var i = 0; i < 20; i ++) {
+				var stage = new PIXI.extras.AnimatedSprite(arr);
+				stage.anchor.set(0.5);
+				stage.scale.set(0.5)
+				stage.x = Math.random() * 800;
+				stage.y = Math.random() * 600;
+				stage.play();
+				
+				app.stage.addChild(stage);
+			}
+			
+		}
+		app.start()
 
 	</script>
 </html>
