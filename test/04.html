@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=750,user-scalable=no"/>
+		<title></title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;}
+		</style>
+	</head>
+	<body>
+	</body>
+	<script src="pixi.js" type="text/javascript" charset="utf-8"></script>
+	<script src="jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="mobile-util.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var w =$(window).width(),
+			h = $(window).height();
+		var rdp = null;
+		// 创建 renderer
+		var app = new PIXI.Application(w, h,{backgroundColor:0x000000});
+		document.body.appendChild(app.view);
+		
+		
+		
+		//背景
+		var bgContiner =new PIXI.Container();
+		var bg = PIXI.Sprite.fromImage('img/bg.png');
+			
+			bg.x = 0;
+			bg.y = 0;
+			
+			bg.width = w;
+			bg.height = h;
+		app.stage.addChild(bgContiner);
+		bgContiner.addChild(bg);
+		
+		
+		
+		
+		//内容--树精灵
+		var Tree = {
+			newTree : function(o){
+				var options = o || {};
+				
+				var Sprite = PIXI.Sprite.fromImage('img/01.png');
+				Sprite.interactive = true;
+				Sprite.buttonMode = true;
+				
+				return Sprite;
+			},
+			state:'play',
+			opcity:'1',
+			cacheArr:[],
+			anmition:function(o){},
+			onClickTrue:function(){
+				Tree.state = 'none';
+			}
+		}
+		Tree = $.extend({},Tree, {
+			filerO : new PIXI.filters.AlphaFilter(Tree.opcity)
+		});
+		var treeSprite = Tree.newTree();
+		treeSprite.x = -200;
+		treeSprite.y = 10;
+		treeSprite.on('pointerdown', Tree.onClickTrue);
+		app.stage.addChild(treeSprite);
+		treeSprite.filters = [Tree.filerO];
+		
+		var treeSprite1 = Tree.newTree();
+		treeSprite1.x = 760;
+		treeSprite1.y = 200;
+		treeSprite1.on('pointerdown', Tree.onClickTrue);
+		app.stage.addChild(treeSprite1);
+		treeSprite1.filters = [Tree.filerO];
+		
+		
+		//草精灵
+		var Grass = {
+			opcity:0,
+			newGrass:function(){
+				var grass = PIXI.Sprite.fromImage('img/03.png');
+				grass.x = app.screen.width/2;
+				grass.y = app.screen.height/2;
+				grass.filters = [new PIXI.filters.AlphaFilter(Grass.opcity)]
+				return grass;
+			},
+			
+		}
+		var grass1 = Grass.newGrass();
+		
+		
+		
+		
+		
+		
+		var windmill = PIXI.Sprite.fromImage('img/02.png');
+		windmill.x = 640;
+		windmill.y = 1010;
+		app.stage.addChild(windmill);
+		
+		
+		
+		var arry = [1210,1211,1212,1213,1214,1225,1216,1219,1218,1219]
+		
+		for (var i=0 ; i<3;i++ ) {
+			var grass = PIXI.Sprite.fromImage('img/03.png');
+			grass.x = parseInt(Math.random() * 730 + 20);
+			grass.y = arry[parseInt(Math.random() * 10)];
+			app.stage.addChild(grass);
+		}
+		
+		app.ticker.add(function(delta){
+			
+			if (Tree.state == 'play') {
+				if (treeSprite.x < w) {
+					treeSprite.x +=1;
+				}else{
+					treeSprite.x = -200
+				};
+				
+				if (treeSprite1.x > -200) {
+					treeSprite1.x -=1;
+				}else{
+					treeSprite1.x = 760;
+				}
+			}else if (Tree.state == 'none'){
+				if (Tree.opcity <= 0) {
+					Tree.state = 'play';
+					treeSprite.x = -200;
+					treeSprite1.x = 760
+					Tree.opcity = 1;
+					treeSprite.filters = [new PIXI.filters.AlphaFilter(Tree.opcity)];
+					treeSprite1.filters = [new PIXI.filters.AlphaFilter(Tree.opcity)];
+				}else{
+					Tree.opcity = +Tree.opcity;
+					Tree.opcity = Tree.opcity.toFixed(2)
+					Tree.opcity -= 0.01;
+					treeSprite.filters = [new PIXI.filters.AlphaFilter(Tree.opcity)];
+					treeSprite1.filters = [new PIXI.filters.AlphaFilter(Tree.opcity)];
+				};
+			}else{
+				console.log('else');
+			}
+			
+			
+		})
+		
+	</script>
+</html>

@@ -10,28 +10,40 @@
 	</head>
 	<body>
 	</body>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.7.1/pixi.min.js" type="text/javascript" charset="utf-8"></script>
-	<script src="../../activity/js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.7.1/pixi.min.js" type="text/javascript" charset="utf-8"></script>-->
+	<script src="../pixi/assets/pixi.js" type="text/javascript" charset="utf-8"></script>
+	<script src="jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
 		var w =$(window).width(),
 			h = $(window).height();
 		// 创建 renderer
-		var renderer = PIXI.autoDetectRenderer(w, h);
-		var stage = new PIXI.Container();
+		var renderer = new PIXI.Application(w, h ,{backgroundColor : 0x1099bb});
+		
 		
 		document.body.appendChild(renderer.view);
 		//创建背景
+		var bgContainer = new PIXI.Container();
+		renderer.stage.addChild(bgContainer);
+		var bg = PIXI.Sprite.fromImage("img/bg.png");
 		
-		PIXI.loader.add("img/bg.png").load(setup);
+
+		// move the sprite to the center of the screen
+		bg.x = 0;
+		bg.y = 0;
+		bg.width = w;
+		bg.height = h;
 		
-		function setup() { 
-			var cat = new PIXI.Sprite(
-		  		PIXI.loader.resources["img/01.png"].texture 
-			);
+		//renderer.stage.addChild(bg)
+		/*function setup() { 
+			var cat = 
 			cat.position.set(1,10)
 			stage.addChild(cat); 
 	
 			renderer.render(stage);
-		}
+		}*/
+		bgContainer.addChild(bg)
+		/*renderer.ticker.add(function(){
+			bg.rotaion = 1
+		})*/
 	</script>
 </html>

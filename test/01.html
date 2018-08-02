@@ -11,7 +11,7 @@
 	<body>
 	</body>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.7.1/pixi.min.js" type="text/javascript" charset="utf-8"></script>
-	<script src="../../activity/js/jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
 		console.log(PIXI);
 		var w =$(window).width(),
@@ -28,11 +28,11 @@
 		
 		
 		// 基本方式
-		var texture = PIXI.utils.TextureCache["img/bg.png"];
-		var sprite = new PIXI.Sprite(texture);
+		/*var texture = PIXI.utils.TextureCache["img/bg.png"];
+		var sprite = new PIXI.Sprite(texture);*/
 		
 		//使用 load 函数
-		PIXI.loader 
+		/*PIXI.loader 
 		  .add("img/bg.png") 
 		  .load(setup);
 		
@@ -40,10 +40,15 @@
 			var sprite = new PIXI.Sprite(
 			  PIXI.loader.resources["img/bg.png"].texture 
 			);
-		}
-		stage.addChild(sprite);
-
+			
+		}*/
+		
+		sprite.width = 100;
+		sprite.height = 100;
+		/*stage.addChild(sprite);
+		stage.width = w;
+		stage.height = h;*/
 		// 用 renderer 渲染 stage
-		renderer.render(stage);
+		renderer.render(sprite);
 	</script>
 </html>

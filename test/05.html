@@ -6,14 +6,27 @@
 		<title></title>
 		<style type="text/css">
 			*{margin: 0;padding: 0;}
+			body{position: relative;}
+			#msg{padding:6px 16px ;border: 2px solid red;border-radius: 8px; display: none;position: absolute;background: #FFF url();max-width: 300px;}
 		</style>
 	</head>
 	<body>
+		<div id="msg">
+			
+		</div>
 	</body>
 	<script src="pixi.js" type="text/javascript" charset="utf-8"></script>
 	<script src="jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="mobile-util.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
+		var arrmsg = [
+			'hello world',
+			'欢迎来到果然好农场',
+			'多多浇水，才能快速长大哦！',
+			'多多浇水，才能快速长大哦！多多浇水，才能快速长大哦！多多浇水，才能快速长大哦！'
+		]
+		
+		
 		var w =$(window).width(),
 			h = $(window).height();
 		var rdp = null;
@@ -21,12 +34,9 @@
 		var app = new PIXI.Application(w, h,{backgroundColor:0x000000});
 		document.body.appendChild(app.view);
 		
-		
-		
 		//背景
 		var bgContiner =new PIXI.Container();
 		var bg = PIXI.Sprite.fromImage('img/bg.png');
-		
 		bg.x = 0;
 		bg.y = 0;
 		
@@ -36,15 +46,31 @@
 		app.stage.addChild(bg);
 		//内容
 		var tree = PIXI.Sprite.fromImage('img/01.png');
-		tree.x = 300;
-		tree.y = 860;
+		tree.anchor.set(0.5);
+		tree.interactive = true;
+		tree.width = 190;
+		tree.height = 310;
+		tree.x = w/2;
+		tree.y = 960;
+		
 		app.stage.addChild(tree);
+		
+		tree.on("pointerdown",function(){
+			var str = arrmsg[parseInt(Math.random()*4)];
+			$("#msg").hide();
+			$("#msg").html(str).css({
+				bottom: h - tree.y + tree.height/2
+			});
+			$("#msg").css({
+				left:((w-$("#msg").width())/2)
+			}).fadeIn(500);
+		})
 		
 		var windmill = PIXI.Sprite.fromImage('img/02.png');
 		windmill.x = 640;
 		windmill.y = 1010;
-		app.stage.addChild(windmill);
 		
+		app.stage.addChild(windmill);
 		var arry = [1210,1211,1212,1213,1214,1225,1216,1219,1218,1219]
 		
 		for (var i=0 ; i<3;i++ ) {

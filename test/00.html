@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+	<script src="jquery-1.8.3.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="pixi.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		const app = new PIXI.Application();
+	
+	// Draw a green rectangle
+	const rect = new PIXI.Graphics()
+	    .beginFill(0x00ff00)
+	    .drawRect(40, 40, 200, 200);
+	
+	// Add a blur filter
+	//rect.filters = [new PIXI.filters.BlurFilter()];
+	
+	rect.filters = [new PIXI.filters.AlphaFilter(0.1)];
+	// Display rectangle
+	app.stage.addChild(rect);
+	document.body.appendChild(app.view);
+	</script>
+</html>
